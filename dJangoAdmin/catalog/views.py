@@ -28,12 +28,15 @@ from django.views import generic
 
 class BookListView(generic.ListView):
     model = Book
-    context_object_name = 'my_book_list'   # your own name for the list as a template variable
-    queryset = Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
-    template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
-
+    
+    context_object_name = 'book_list'   # your own name for the list as a template variable
+    #queryset = Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
+    template_name = 'books/book_list.html'  # Specify your own template name/location
+    paginate_by = 2
+    
     def get_queryset(self):
-        return Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war    
+        return Book.objects.all()
+        #return Book.objects.filter(title__icontains='Ha')[:5] # Get 5 books containing the title war    
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -41,6 +44,23 @@ class BookListView(generic.ListView):
         # Get the blog from id and add it to the context
         context['some_data'] = 'This is just some data'
         return context    
+    
+    
       
 class BookDetailView(generic.DetailView):
-    model = Book      
+    model = Book    
+    
+    def book_detail_view(request,pk):
+        try:
+            book_id=Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            raise Http404("Book does not exist")
+    
+    
+        #book_id=get_object_or_404(Book, pk=pk)
+        
+        return render(
+            request,
+            'catalog/book_detail.html',
+            context={'book':book_id,}
+        )
