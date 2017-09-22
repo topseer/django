@@ -21,6 +21,9 @@ urlpatterns += [
 ]
 
 
+urlpatterns += [   
+    url(r'^dashboard/$', views.dashboard, name='dashboard'),
+]
 
 urlpatterns += [  
     url(r'^author/create/$', views.AuthorCreate.as_view(), name='author_create'),

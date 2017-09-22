@@ -38,8 +38,7 @@ urlpatterns += [
 urlpatterns += [
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
-
-
+ 
 # Use static() to add url mapping to serve static files during development (only)
 from django.conf import settings
 from django.conf.urls.static import static

@@ -28,6 +28,11 @@ def index(request):
                  'wild_books':wild_books,'number_wild_books':number_wild_books,
                  'num_visits':num_visits},
     )
+    
+def dashboard(request):
+    template_name = 'GDashboard/production/index.html'
+    return render(request, 'GDashboard/production/index.html') 
+    
 
 from django.views import generic
 
