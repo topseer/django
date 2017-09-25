@@ -14,19 +14,26 @@
     <!-- Bootstrap -->
     <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}"  rel="stylesheet">
     <!-- Font Awesome -->
+    {% load static %} 
     <link href="{% static '/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <!-- NProgress -->
+    {% load static %} 
     <link href="{% static '/vendors/nprogress/nprogress.css' %}" rel="stylesheet">
     <!-- iCheck -->
+    {% load static %} 
     <link href="{% static '/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">	
     <!-- bootstrap-progressbar -->
+    {% load static %} 
     <link href="{% static '/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}"  rel="stylesheet">
     <!-- JQVMap -->
+    {% load static %} 
     <link href="{% static '/vendors/jqvmap/dist/jqvmap.min.css' %}"  rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
+    {% load static %} 
     <link href="{% static '/vendors/bootstrap-daterangepicker/daterangepicker.css' %}"  rel="stylesheet">
 
     <!-- Custom Theme Style -->
+    {% load static %} 
     <link href="{% static '/build/css/custom.min.css' %}"  rel="stylesheet">
     
   </head>
@@ -45,7 +52,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="{% static '/images/img.jpg' %}" alt="..." class="img-circle profile_img">
+                <img src="{% static 'images/img.jpg' %}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
               {% if user.is_authenticated %}
@@ -54,10 +61,10 @@
                 <span>Welcome,</span>
                 <h2>User: {{ user.get_username }}</h2>
                         <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
-         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-         {% else %}
-         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-         {% endif %} 
+                        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+                        {% else %}
+                        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+                        {% endif %} 
          
               </div>
             </div>
@@ -199,7 +206,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static '/images/img.jpg' %}" alt="">
+                    <img src="{% static 'images/img.jpg' %}" alt="">
                     {% if user.is_authenticated %}
                     {{ user.get_username }}      
  
@@ -227,12 +234,14 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <!--  <i class="fa fa-envelope-o"></i>  -->
+                    <!--   <link href="{% static '/vendors/jqvmap/dist/jqvmap.min.css' %}"  rel="stylesheet"/> -->
                     Yang, Make a Positive Impact everyday! 
                     <span class="badge bg-green">Yes</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
+                        {% load static %} 
                         <span class="image"><img src="{% static '/images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
@@ -245,7 +254,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="{% static '/images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -257,7 +266,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="{% static '/images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -269,7 +278,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="{% static '/images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
