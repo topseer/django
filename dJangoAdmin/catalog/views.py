@@ -28,10 +28,48 @@ def index(request):
                  'wild_books':wild_books,'number_wild_books':number_wild_books,
                  'num_visits':num_visits},
     )
-    
+
+
+from django.contrib.auth.models import User
+import pyodbc 
+import pandas.io.sql as sql
+from django import forms
+ 
+
 def dashboard(request):
+    server = '10.203.1.105\\alpha' 
+    database = 'test_yang' 
+    username = 'webuser' 
+    password = 'Changeme1' 
+    cnxn = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+    cursor = cnxn.cursor()
+
+    user = User.objects.get(id=2)
+    user_email = user.email
+    query = """
+    select Count(*) Router 
+    from AEPerformanceReport_1 as a 
+    inner join topDownAELookupTable as b 
+    on a.Date >= (select lastlastSaturday from DataDrivenReport_DateRange)
+    and a.Date <= (select lastFriday from DataDrivenReport_DateRange)
+    and a.PersonID = b.PersonId 
+    and b.Email = 'aaa@aaa.com'
+    and EventName = 'Router Call'
+    """
+ 
+
+    query = query.replace('aaa@aaa.com',user_email)
+   
+    queryResult = sql.read_sql(query, cnxn)
+    
+    num_Router_lstWk = queryResult["Router"][0]
+
     template_name = 'GDashboard/production/index.html'
-    return render(request, 'GDashboard/production/index.html') 
+    return render(
+        request, 
+        'GDashboard/production/index.html',
+        context={'num_leads_yst':num_Router_lstWk,'user_email':user_email},
+    ) 
     
 
 from django.views import generic
