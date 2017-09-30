@@ -40,7 +40,7 @@
     <!-- Include Date Range Picker -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
- -->   
+  
 
   </head>
 
@@ -50,13 +50,26 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="" class="site_title"><i class="fa fa-paw"></i> 
+                <span>NewDay Report</span></a>
             </div>
 
             <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
+                  
+               
+                
+                       
+                                 <form id = "form_id" method="post" class="pull-mid" action ="." >                  
+                                 
+                                   {% csrf_token %}
+                                   {{ form.as_p }}                
+                                 <button type='submit' class = "h3">Refresh</button>                                 
+                                 </form>                               
+               
+              
+            <!-- menu profile quick info  
             <div class="profile clearfix">
+               
               <div class="profile_pic">
                 <img src="{% static '/images/img.jpg' %}" alt="..." class="img-circle profile_img">
               </div>
@@ -67,23 +80,23 @@
                 <span>Welcome,</span>
                 <h2>User: {{ user.get_username }}</h2>
                         <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
-         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-         {% else %}
-         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-         {% endif %} 
-         
+                        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+                        {% else %}
+                        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+                        {% endif %} 
+ 
               </div>
+                    
             </div>
             <!-- /menu profile quick info -->
-
-            <br />
+ 
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-area-chart"></i>AE Reports<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
                       <li><a href="index2.html">Dashboard2</a></li>
@@ -111,7 +124,9 @@
               </div>
 
               <ul class="nav navbar-nav navbar-right">
+                
                 <li class="">
+                  
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="{% static '/images/img.jpg' %}" alt="">
                     {% if user.is_authenticated %}
@@ -193,47 +208,10 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
 
-                <div class="row x_title">
-                  <div class="col-md-6">
-                    <h3>Network Activities <small>Graph title sub-title</small></h3>
-                  </div>
-
-                  
-                  <div class="col-md-6">
-                
-                
-      
-                                                            
-                       
-                    <input type="text" name="daterange" value="01/01/2017 - 01/31/2017"  class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc" />
-                    
-                    <script type="text/javascript">
-                    $(function() {
-                        $('input[name="daterange"]').daterangepicker();
-                    });
-                    </script>
-                   
-               <!--
-                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2016 - January 28, 2017</span> <b class="caret"></b>
-                    </div>
-        -->
-              
-                    
-             
-                                        
-                    
-                  </div>
+                <div class="row x_title">            
+                  <h3>Yang, you are super!</h3>
                 </div>
-         
-         
-               
-                    
-
-                                
-
-
+ 
 
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <div id="chart_plot_01" class="demo-placeholder"></div>

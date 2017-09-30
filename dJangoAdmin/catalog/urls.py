@@ -25,6 +25,10 @@ urlpatterns += [
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
 ]
 
+urlpatterns += [   
+    url(r'^dashboard/dateRange/$', views.dashboard, name='dashboard'),
+]
+
 urlpatterns += [  
     url(r'^author/create/$', views.AuthorCreate.as_view(), name='author_create'),
     url(r'^author/(?P<pk>\d+)/update/$', views.AuthorUpdate.as_view(), name='author_update'),

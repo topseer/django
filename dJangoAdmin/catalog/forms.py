@@ -1,9 +1,13 @@
 from django import forms
+from django_bootstrap3_daterangepicker import fields
+from django_bootstrap3_daterangepicker import widgets
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
-    
+
+
+
 class RenewBookForm(forms.Form):
     renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
 
@@ -20,3 +24,14 @@ class RenewBookForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+class NameForm(forms.Form):
+    your_name = forms.CharField(label='Your name', max_length=100)    
+
+
+class PeriodFilter(forms.Form):
+    Range= fields.DateRangeField(
+         widget=widgets.DateRangeWidget(picker_options={'ranges': widgets.common_dates()}),
+         label = ''
+         )
+    

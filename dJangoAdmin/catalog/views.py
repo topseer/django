@@ -34,11 +34,38 @@ from django.contrib.auth.models import User
 import pyodbc 
 import pandas.io.sql as sql
 from django import forms
+import datetime   
+from .forms import NameForm
+from .forms import PeriodFilter
+from datetime import date
+
+
  
 def dashboard(request):
  
     user = User.objects.get(id=2)
     user_email = user.email
+
+    from_date = 1234
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = PeriodFilter(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            (from_date, to_date) = form.cleaned_data['Range']
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = PeriodFilter(initial={'range': (date.today(), date.today())})
+
+    
+    
+    
+
 
 #    server = '10.203.1.105\\alpha' 
 #    database = 'test_yang' 
@@ -65,12 +92,12 @@ def dashboard(request):
     
 #    num_Router_lstWk = queryResult["Router"][0]
 
-    num_Router_lstWk=1234
+    num_Router_lstWk=from_date
     template_name = 'GDashboard/production/index.html'
     return render(
         request, 
         'GDashboard/production/index.html',
-        context={'num_leads_yst':num_Router_lstWk,'user_email':user_email},
+        context={'num_leads_yst':num_Router_lstWk,'user_email':user_email,'form':form},
     ) 
     
 
