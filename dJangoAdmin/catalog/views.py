@@ -31,23 +31,25 @@ def index(request):
 
 
 from django.contrib.auth.models import User
+from django.contrib.auth.views import login
+
 import pyodbc 
 import pandas.io.sql as sql
 from django import forms
 import datetime   
 from .forms import NameForm
 from .forms import PeriodFilter
-from datetime import date
+from datetime import date 
+from django.shortcuts import redirect
 
+from . import numOfLeads
 
- 
 def dashboard(request):
  
     user = User.objects.get(id=2)
     user_email = user.email
 
-    from_date = 1234
-
+    
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = PeriodFilter(request.POST)
@@ -63,42 +65,28 @@ def dashboard(request):
         form = PeriodFilter(initial={'range': (date.today(), date.today())})
 
     
+    num_Router_lstWk= numOfLeads.numOfRouterCalls(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
+    num_Web_lstWk= numOfLeads.numOfWebLeads(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
     
-    
-
-
-#    server = '10.203.1.105\\alpha' 
-#    database = 'test_yang' 
-#    username = 'webuser' 
-#    password = 'Changeme1' 
-#    cnxn = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-#    cursor = cnxn.cursor()
-#
-#    query = """
-#    select Count(*) Router 
-#    from AEPerformanceReport_1 as a 
-#    inner join topDownAELookupTable as b 
-#    on a.Date >= (select lastlastSaturday from DataDrivenReport_DateRange)
-#    and a.Date <= (select lastFriday from DataDrivenReport_DateRange)
-#    and a.PersonID = b.PersonId 
-#    and b.Email = 'aaa@aaa.com'
-#    and EventName = 'Router Call'
-#    """
-# 
-#
-#    query = query.replace('aaa@aaa.com',user_email)
-#   
-#    queryResult = sql.read_sql(query, cnxn)
-    
-#    num_Router_lstWk = queryResult["Router"][0]
-
-    num_Router_lstWk=from_date
     template_name = 'GDashboard/production/index.html'
-    return render(
-        request, 
-        'GDashboard/production/index.html',
-        context={'num_leads_yst':num_Router_lstWk,'user_email':user_email,'form':form},
-    ) 
+
+    if request.user.is_authenticated():
+         return render(
+         request, 
+         'GDashboard/production/index.html',
+         context={'num_router_leads':num_Router_lstWk,'user_email':user_email,'form':form,
+                  'num_web_leads':num_Web_lstWk
+                 },
+         ) 
+    else:       
+       return  redirect('accounts/login/')
+    # return render(
+    #     request, 
+    #      'GDashboard/production/index.html',
+    #      context={'num_leads_yst':num_Router_lstWk,'user_email':user_email,'form':form},
+    #      ) 
+
+    
     
 
 from django.views import generic
