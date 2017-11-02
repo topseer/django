@@ -48,7 +48,8 @@ def dashboard(request):
  
     user = User.objects.get(id=2)
     user_email = user.email
-
+    from_date = date.today()
+    to_date = date.today()
     
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -67,15 +68,23 @@ def dashboard(request):
     
     num_Router_lstWk= numOfLeads.numOfRouterCalls(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
     num_Web_lstWk= numOfLeads.numOfWebLeads(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
+    numOfAOs= numOfLeads.numOfAOs(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
+    numOfIPs= numOfLeads.numOfIPs(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
+    numOfFunds= numOfLeads.numOfFunds(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
+    numOfPitch= numOfLeads.numOfPitch(from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'),user_email)
     
-    template_name = 'GDashboard/production/index.html'
+        
 
     if request.user.is_authenticated():
          return render(
          request, 
          'GDashboard/production/index.html',
          context={'num_router_leads':num_Router_lstWk,'user_email':user_email,'form':form,
-                  'num_web_leads':num_Web_lstWk
+                  'num_web_leads':num_Web_lstWk,
+                  'numOfAOs':numOfAOs,
+                  'numOfIPs':numOfIPs,
+                  'numOfFunds':numOfFunds,
+                  'numOfPitch':numOfPitch                  
                  },
          ) 
     else:       
