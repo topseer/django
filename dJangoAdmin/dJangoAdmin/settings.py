@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
     'catalog.apps.CatalogConfig', 
     'django_bootstrap3_daterangepicker',
+    'jchart'    
 ]
 
 MIDDLEWARE = [
@@ -56,9 +57,9 @@ ROOT_URLCONF = 'dJangoAdmin.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',        
         'DIRS': ['./templates',],
-        'APP_DIRS': True,
+        'APP_DIRS': True,        
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

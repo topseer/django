@@ -14,6 +14,41 @@ from django.shortcuts import redirect
 
 from . import numOfLeads
 from . import datatrend
+from django.http import JsonResponse
+
+from random import randint
+from django.views.generic import TemplateView
+from jchart import Chart
+from random import randint
+from datetime import datetime, timedelta
+
+from jchart import Chart
+from jchart.config import Axes, DataSet, rgba
+
+class BarChart(Chart):
+    chart_type = 'bar'
+
+    def get_labels(self, **kwargs):
+        return ["January", "February", "March", "April",
+                "May", "June", "July"]
+
+    def get_datasets(self, **kwargs):
+        data = [10, 15, 29, 30, 5, 10, 22]
+        colors = [
+            rgba(255, 99, 132, 0.2),
+            rgba(54, 162, 235, 0.2),
+            rgba(255, 206, 86, 0.2),
+            rgba(75, 192, 192, 0.2),
+            rgba(153, 102, 255, 0.2),
+            rgba(255, 159, 64, 0.2)
+        ]
+
+        return [DataSet(label='Bar Chart',
+                        data=data,
+                        borderWidth=1,
+                        backgroundColor=colors,
+                        borderColor=colors)]
+
 
 def dashboard(request):
  
@@ -49,6 +84,7 @@ def dashboard(request):
     timeseries_webLeads=timeseries_data[["StartOfWeek","WebLead"]]
     timeseries_Router=timeseries_data[["StartOfWeek","RouterCall"]]
     
+
     timeseries_webLeads=	  [
 		  ['2012, 1, 1', 82],
 		  ['2012, 1, 2', 23],
@@ -69,6 +105,8 @@ def dashboard(request):
 		  ['2012, 1, 7', 1]
 		];
     
+    timeseries_webLeads = [100, 80, 60, 40, 20, 10, 0]
+
     if request.user.is_authenticated():
          return render(
          request, 
@@ -79,8 +117,9 @@ def dashboard(request):
                   'numOfIPs':numOfIPs,
                   'numOfFunds':numOfFunds,
                   'numOfPitch':numOfPitch ,                 
-                  'timeseries_webLeads':timeseries_webLeads ,
-                  'timeseries_Router':timeseries_Router 
+                  'timeseries_webLeads':timeseries_webLeads, 
+                  'timeseries_Router':timeseries_Router ,
+                  'line_chart': BarChart()
                  },
          ) 
     else:       
@@ -90,9 +129,4 @@ def dashboard(request):
     #      'GDashboard/production/index.html',
     #      context={'num_leads_yst':num_Router_lstWk,'user_email':user_email,'form':form},
     #      ) 
-
-    
-    
-
  
-        
